@@ -61,10 +61,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mahamodulhsanmoon/testting.git"
+    "url": "git+https://github.com/mahamodulhasanmoon/rapid-mongo-expresskit.git"
   },
   "bugs": {
-    "url": "https://github.com/mahamodulhsanmoon/testting/issues"
+    "url": "https://github.com/mahamodulhasanmoon/rapid-mongo-expresskit/issues"
   },
-  "homepage": "https://github.com/mahamodulhsanmoon/testting#readme"
+  "homepage": "https://github.com/mahamodulhasanmoon/rapid-mongo-expresskit#readme"
 }
