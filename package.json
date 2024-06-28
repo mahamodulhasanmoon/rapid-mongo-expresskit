@@ -17,7 +17,7 @@
     "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "format:fix": "npx prettier --write src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create-module": "node ./bin/generator.js"
+    "create-module": "node ./bin/cmdr.js"
   },
   "keywords": [
     "express",
