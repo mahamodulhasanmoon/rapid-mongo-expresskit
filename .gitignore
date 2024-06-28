@@ -12,6 +12,7 @@ nbin
 lib-cov
 # Coverage directory used by tools like istanbul
 coverage
+pnpm-lock.yaml
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
