@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #ae3af1;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h1 {
+            color: #333333;
+        }
+        .content p {
+            color: #555555;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #ae3af1;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            color: #888888;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Welcome to BrainicSoft Digital</h2>
+        </div>
+        <div class="content">
+            <h1>Hello, 
+                <%= data.name %>!</h1>
+            <p>Thank you for signing up with your email: <%= data.email %>. To complete your registration, please use the following code to activate your account:</p>
+            <h2 style="text-align: center; color: #ae3af1;"><%= data.code %></h2>
+            <p>If you did not sign up for this account, please ignore this email.</p>
+            <a 
+         href="<%= data.token %>"
+            
+             class="button">Activate Your Account</a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Our Service. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

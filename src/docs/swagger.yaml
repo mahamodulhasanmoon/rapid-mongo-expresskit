@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: Test Api Documentation
+  version: 1.0.0
+  description: Hello Basic Project Learning Perpose
+  termsOfService: https://example.com/terms
+  contact:
+    name: Mahamodul Hasan Moon
+    email: mahamodulhasan.moon@gmail.com
+    url: https://mahamodulhasan.me
+  license:
+    name: Apache License, Version 2.0
+    url: https://apache.com
+servers:
+  - description: Development
+    url: https://localhost:8000/api/v1
+tags:
+  - name: HealthChecks
+    description: public Api Endpoints  And Autentation Perpose
+  - name: Authentications
+    description: public Api Endpoints  And Autentation Perpose
+  - name: Posts
+    description: public Api Endpoints  And Autentation Perpose
+  - name: Blogs
+    description: public Api Endpoints  And Autentation Perpose
+
+paths:
+  /health:
+    get:
+      description: Testing For Server Health
+      tags:
+        - HealthChecks
+      responses:
+        '200':
+          description: it will Return Success MEsssage
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: ok
+  /auth/signup:
+    post:
+      description: For Creating An Account For Authentication
+      tags: [Authentications]
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Mahamodul Hasan Moon
+                email:
+                  type: string
+                  format: email
+                  example: mahamodulhasan.moon@gmail.com
+                password:
+                  type: string
+                  format: password
+                  example: password123
+              required:
+                - name
+                - email
+                - password
+      responses:
+        '201':
+          description: Successfully Created Account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    format: int32
+                    example: 201
+                  message:
+                    type: string
+                    example: user created Successfully
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: iIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /auth/signup
+                      signin:
+                        type: string
+                        example: /auth/login
+
+        '400':
+          $ref: '#/components/responses/400'
+  /auth/login:
+    post:
+      description: For Login Any User
+      tags: [Authentications]
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: mahamodulhasan.moon@gmail.com
+                password:
+                  type: string
+                  format: password
+                  example: password123
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: Logged in Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Logged in Successfully
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: iIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /auth/login
+
+        '400':
+          $ref: '#/components/responses/400'
+
+# make components
+
+components:
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: integer
+                format: int32
+                example: 400
+              error:
+                type: string
+                example: bad Request
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                      example: email
+                    message:
+                      type: string
+                      example: invalid Email

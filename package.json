@@ -1,0 +1,70 @@
+{
+  "name": "rapid-mongo-expresskit",
+  "version": "1.0.0",
+  "description": "Rapid Mongo Express Kit is a ready-to-use boilerplate for building Express.js applications with MongoDB. It includes pre-configured authentication, mail sending, error handling, and other utilities to streamline development and reduce repetitive tasks.",
+  "main": "index.js",
+  "bin": {
+    "rapid-expresskit": ".bin/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "lint:fix": "npx eslint src --fix",
+    "lint": "eslint src --ignore-path .eslintignore --ext .ts",
+    "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+    "format:fix": "npx prettier --write src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["express", "mongodb", "authentication", "boilerplate", "redis" ,"development", "mail server", "error handling", "express", "mongoose", "jwt", "bcrypt", "nodemailer", "cors", "cookie-parser", "dotenv", "ejs", "swagger", "zod", "ioredis"
+],
+  "author": "Mahamodul Hasan Moon",
+  "license": "MIT",
+  "dependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "http-status": "^1.7.4",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.5",
+    "nodemailer": "^6.9.14",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.12.12",
+    "@types/nodemailer": "^6.4.15",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@types/yamljs": "^0.2.34",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "morgan": "^1.10.0",
+    "prettier": "^3.2.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahamodulhsanmoon/testting.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mahamodulhsanmoon/testting/issues"
+  },
+  "homepage": "https://github.com/mahamodulhsanmoon/testting#readme"
+}
