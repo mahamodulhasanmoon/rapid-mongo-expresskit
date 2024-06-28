@@ -1,13 +1,12 @@
 {
   "name": "rapid-mongo-expresskit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rapid Mongo Express Kit is a ready-to-use boilerplate for building Express.js applications with MongoDB. It includes pre-configured authentication, mail sending, error handling, and other utilities to streamline development and reduce repetitive tasks.",
   "main": "index.js",
   "bin": {
     "rapid-mongo-expresskit": ".bin/cli.js",
     "pnpm-create-module": "./bin/generator.js"
   },
-
   "engines": {
     "node": ">=18"
   },
@@ -19,10 +18,30 @@
     "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "format:fix": "npx prettier --write src",
     "test": "echo \"Error: no test specified\" && exit 1",
-     "create-module": "node ./bin/generator.js"
+    "create-module": "node ./bin/generator.js"
   },
-  "keywords": ["express", "mongodb", "authentication", "boilerplate", "redis" ,"development", "mail server", "error handling", "express", "mongoose", "jwt", "bcrypt", "nodemailer", "cors", "cookie-parser", "dotenv", "ejs", "swagger", "zod", "ioredis"
-],
+  "keywords": [
+    "express",
+    "mongodb",
+    "authentication",
+    "boilerplate",
+    "redis",
+    "development",
+    "mail server",
+    "error handling",
+    "express",
+    "mongoose",
+    "jwt",
+    "bcrypt",
+    "nodemailer",
+    "cors",
+    "cookie-parser",
+    "dotenv",
+    "ejs",
+    "swagger",
+    "zod",
+    "ioredis"
+  ],
   "author": "Mahamodul Hasan Moon",
   "license": "MIT",
   "dependencies": {
