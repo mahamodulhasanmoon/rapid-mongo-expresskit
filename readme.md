@@ -111,5 +111,26 @@ After running the above commands, your Express.js application will be ready to u
  ┣ 📜readme.md
  ┗ 📜tsconfig.json
 ```
+
+
+## Create Module routes controller service using cli 
+
+you Can Create full Module with Boilarplate code using   cli command :
+
+```
+pnpm create-module <module-name>
+```
+
+now you can see your routes interface model controller and service boilerplate code is available under src/modules/<module-name> folder 
+like 
+```
+module-name.model.ts
+module-name.controller.ts
+module-name.service.ts
+module-name.interface.ts
+module-name.validation.ts
+module-name.routes.ts
+```
+
 ## License
 This project is licensed under the MIT License.
