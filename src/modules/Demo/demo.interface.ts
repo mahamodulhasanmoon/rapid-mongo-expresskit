@@ -1,12 +1,9 @@
 import {} from 'mongoose';
 
-export type UserName = {
-  firstName: string;
-  lastName: string;
-};
+
 
 export interface IDemo {
-  name: UserName;
+  name: string;
   email: string;
   avatar?: string;
 }

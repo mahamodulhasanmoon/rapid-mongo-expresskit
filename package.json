@@ -4,8 +4,10 @@
   "description": "Rapid Mongo Express Kit is a ready-to-use boilerplate for building Express.js applications with MongoDB. It includes pre-configured authentication, mail sending, error handling, and other utilities to streamline development and reduce repetitive tasks.",
   "main": "index.js",
   "bin": {
-    "rapid-expresskit": ".bin/cli.js"
+    "rapid-expresskit": ".bin/cli.js",
+    "pnpm-create-module": "./bin/generator.js"
   },
+
   "engines": {
     "node": ">=18"
   },
@@ -16,7 +18,8 @@
     "lint": "eslint src --ignore-path .eslintignore --ext .ts",
     "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "format:fix": "npx prettier --write src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "create-module": "node ./bin/generator.js"
   },
   "keywords": ["express", "mongodb", "authentication", "boilerplate", "redis" ,"development", "mail server", "error handling", "express", "mongoose", "jwt", "bcrypt", "nodemailer", "cors", "cookie-parser", "dotenv", "ejs", "swagger", "zod", "ioredis"
 ],
