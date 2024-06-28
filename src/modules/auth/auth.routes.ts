@@ -39,6 +39,10 @@ authRoutes.get('/refresh', refreshController);
 
 authRoutes.post('/forgot-password', forgetPasswordController);
 authRoutes.patch('/reset-password', resetPasswordController);
-authRoutes.patch('/change-password',auth('user','admin','subadmin') ,changePasswordController);
+authRoutes.patch(
+  '/change-password',
+  auth('user', 'admin', 'subadmin'),
+  changePasswordController,
+);
 
 authRoutes.get('/logout', logoutController);

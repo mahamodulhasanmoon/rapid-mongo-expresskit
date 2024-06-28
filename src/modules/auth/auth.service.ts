@@ -175,15 +175,15 @@ export const resetPasswordPasswordService = async (
   ) as JwtPayload;
 
   await User.updatePassword(decoded.email as string, payload);
-
 };
-export const changePasswordService = async (userData:Partial<IUser> |  JwtPayload,
+export const changePasswordService = async (
+  userData: Partial<IUser> | JwtPayload,
   payload: any,
 ) => {
-const payData:Partial<IUser> = {
-  email: userData.email
-}
-const user = await User.findOne({ email: payData.email }).select('+password');
+  const payData: Partial<IUser> = {
+    email: userData.email,
+  };
+  const user = await User.findOne({ email: payData.email }).select('+password');
   // Check User Exist Or not
   if (!user) {
     throw new CustomError(404, 'User not exists please create an account');
@@ -199,5 +199,4 @@ const user = await User.findOne({ email: payData.email }).select('+password');
   }
 
   await User.updatePassword((user as any).email as string, payload);
-
 };

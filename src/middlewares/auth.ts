@@ -10,7 +10,7 @@ import { IUserRole } from '../modules/user/user.interface';
 const auth = (...requiredRoles: IUserRole[]) => {
   return catchAsync(
     async (req: Request, _res: Response, next: NextFunction) => {
-      const { accessToken:token } = req.cookies;
+      const { accessToken: token } = req.cookies;
 
       // checking if the token is missing
       if (!token) {
@@ -48,7 +48,6 @@ const auth = (...requiredRoles: IUserRole[]) => {
       if (userStatus === 'blocked') {
         throw new CustomError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
       }
-
 
       if (requiredRoles && !requiredRoles.includes(role)) {
         throw new CustomError(

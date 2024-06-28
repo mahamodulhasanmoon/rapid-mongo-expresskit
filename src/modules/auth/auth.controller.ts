@@ -135,19 +135,16 @@ export const resetPasswordController: RequestHandler = catchAsync(
 );
 export const changePasswordController: RequestHandler = catchAsync(
   async (req, res) => {
-    const user = req.user
+    const user = req.user;
     await changePasswordService(user, req.body);
 
     sendResponse(res, {
       status: httpStatus.OK,
       success: true,
       message: 'password updated Successfully',
-
     });
   },
 );
-
-
 
 export const logoutController: RequestHandler = catchAsync(async (req, res) => {
   res.clearCookie('accessToken');
