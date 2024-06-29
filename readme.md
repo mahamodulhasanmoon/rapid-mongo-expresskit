@@ -132,5 +132,167 @@ module-name.validation.ts
 module-name.routes.ts
 ```
 
+# modulename.model.ts
+
+```ts
+
+  import { Schema, model } from 'mongoose';
+import { IModulename } from './modulename.interface';
+
+const modulenameSchema = new Schema<IModulename>({
+  email: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+  },
+});
+
+
+  export const Modulename = model<IModulename>('Modulename', modulenameSchema);
+
+
+```
+
+# modulename.interface.ts
+
+```ts
+
+// modulename.model.ts
+export interface IModulename {
+  name: string;
+  email: string;
+  phone?: string;
+
+  // update your content here 
+}
+
+```
+
+# modulename.validation.ts
+
+```ts
+// modulename.validation.ts
+
+import { z } from 'zod';
+export const modulenameValidationSchema = z.object({
+  body: z.object({
+    email: z.string(),
+    name: z.string(),
+    avatar: z.string(),
+  }),
+});
+
+```
+
+# modulename.controller.ts
+
+```ts
+
+// Modulename.controller.ts
+  import { RequestHandler } from 'express';
+  import {  sendResponse } from '../../utils/sendResponse';
+  import { catchAsync } from '../../utils/catchAsync';
+  import { createModulenameService } from './modulename.service'; // Update with your service path
+
+  export const getAllModulenameController: RequestHandler = catchAsync(async (req, res) => {
+    const result = await createModulenameService(req.body);
+    sendResponse(res, {
+      status: 201,
+      success: true,
+      message: 'Successfully created modulename',
+      data: result,
+    });
+  });
+  ```
+
+  # modulename.service.ts
+
+  ```ts
+
+// modulename.service.ts
+
+    import { IModulename } from "./modulename.interface";
+    import { Modulename } from "./modulename.model";
+ 
+    export const createModulenameService = async (payload: IModulename) => {
+  const result = await Modulename.create(payload);
+  return result;
+};
+
+  ```
+
+  # modulename.routes.ts
+
+  ```ts
+// modulename.routes.ts
+
+import { Router } from 'express';
+
+export const modulenameRoutes: Router = Router();
+
+modulenameRoutes.post('/demo');
+
+
+  ```
+## How to Implement Routes
+
+- go to src/routes
+- open index.ts
+- you can see here : 
+```ts
+import { Router } from 'express';
+import { userRoutes } from '../modules/user/user.routes';
+import { authRoutes } from '../modules/auth/auth.routes';
+
+type IModulerRoutes = { path: string; route: Router }[];
+
+export const modulerRoutes: IModulerRoutes = [
+  {
+    path: '/user',
+    route: userRoutes,
+  },
+  {
+    path: '/auth',
+    route: authRoutes,
+  },
+];
+
+```
+
+this is  built-in routes for authentication
+if you want to add new routes then format is:
+
+```ts
+{
+    path:'endpoint here'
+    route: modulenameRoutes
+}
+
+```
+
+## Advance Data Query and Filtering 
+
+you can add get Request and  sorting querey searching in your service code format is:
+
+```ts
+    export const getAllModulnameService = async (query: Record<string, unknown>) => {
+      const moduleQueries = new QueryBuilder(Modulename.find(), query)
+      .fields()
+      .filter()
+      .sort()
+      .search('search value here ')
+
+      const result = await moduleQueries.modelQuery;
+      return result ;
+};
+```
+
+
 ## License
 This project is licensed under the MIT License.
