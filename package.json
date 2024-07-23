@@ -4,8 +4,8 @@
   "description": "Rapid Mongo Express Kit is a ready-to-use boilerplate for building Express.js applications with MongoDB. It includes pre-configured authentication, mail sending, error handling, and other utilities to streamline development and reduce repetitive tasks.",
   "main": "index.js",
   "bin": {
-    "rapid-mongo-expresskit": "nbin/cli.js",
-    "create-module": "bin/cmdr.js"
+    "rapid-mongo-expresskit": "bin/cli.js",
+    "create-module": "bin/genarator.js"
   },
   "engines": {
     "node": ">=18"
@@ -18,7 +18,7 @@
     "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "format:fix": "npx prettier --write src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create-module": "node ./bin/cmdr.js"
+    "create-module": "npx create-module"
   },
   "keywords": [
     "express",
