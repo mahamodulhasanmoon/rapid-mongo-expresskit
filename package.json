@@ -58,6 +58,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.5",
     "nodemailer": "^6.9.14",
+    "passport-google-oauth2": "^0.2.0",
     "swagger-ui-express": "^5.0.0",
     "yamljs": "^0.3.0",
     "zod": "^3.23.8"
