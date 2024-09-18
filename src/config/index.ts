@@ -20,6 +20,9 @@ export const access_token_expiry: string =
 export const refresh_token_expiry: string =
   process.env.REFRESH_TOKEN_EXPIRE || '';
 
+  export const googleClient = process.env.GOOGLE_CLIENT
+  export const googleSecrete = process.env.GOOGLE_SECRET
+
 //  For Email Server
 
 export const mailHost: string = process.env.MAIL_HOST || 'smtp.gmail.com';

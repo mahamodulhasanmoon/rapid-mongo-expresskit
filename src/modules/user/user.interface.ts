@@ -6,10 +6,13 @@ export interface IUser {
   name: string;
   username: string;
   email: string;
-  password: string;
+  password?: string | null;
   role: 'user' | 'admin' | 'subadmin';
   isDeleted: boolean;
   code: number;
+  googleId:string,
+  avatar?:string;
+  
 }
 export interface IUserMethod {
   comparePassword(password: string): Promise<boolean>;

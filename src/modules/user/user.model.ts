@@ -19,9 +19,15 @@ const userSchema = new Schema<IUser, IUserModel>(
       required: [true, 'Email is required'],
       unique: true,
     },
+    googleId: {
+      type: String,
+      default: null,
+    },
+    avatar:{
+      type:String
+    },
     password: {
       type: String,
-      required: [true, 'Password is required'],
       select: 0,
     },
     role: {
@@ -41,7 +47,9 @@ const userSchema = new Schema<IUser, IUserModel>(
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this; // doc
-  user.password = await bcrypt.hash(user.password, Number(saltRound));
+  if (user.password) {
+    user.password = await bcrypt.hash(user.password, Number(saltRound));
+  }
   next();
 });
 

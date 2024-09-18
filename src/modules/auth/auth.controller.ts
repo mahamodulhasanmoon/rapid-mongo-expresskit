@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { IUser } from '../user/user.interface';
 import jwt from 'jsonwebtoken';
+import passport from 'passport'; 
 import {
   changePasswordService,
   createUserService,
@@ -13,9 +14,82 @@ import {
 } from './auth.service';
 import { sendResponse } from '../../utils/sendResponse';
 import httpStatus from 'http-status';
-import { NODE_ENV, access_token } from '../../config';
+import { NODE_ENV, access_token, access_token_expiry, refresh_token, refresh_token_expiry } from '../../config';
 import { JwtPayload } from 'jsonwebtoken';
 import { CustomError } from '../../errors/CustomError';
+import { ILogin } from './auth.interface';
+import { genarateToken } from '../../utils/genarateToken';
+
+
+export const googleLoginController: RequestHandler = catchAsync(() => {
+passport.authenticate('google',{
+  scope: ['email','profile'],
+})
+
+});
+
+export const  googleLoginCallbackController:RequestHandler = catchAsync((req,res) => {
+ const user:any = req.user;
+if(user){
+  const jwtPayload = {
+    userId: user._id,
+    email: user.email,
+    name: user.username,
+    role: user.role,
+    avatar: user.avatar,
+    username: user.username,
+  };
+ 
+
+  const accessToken = genarateToken(jwtPayload, access_token, access_token_expiry);
+  const refreshToken = genarateToken(jwtPayload, refresh_token, refresh_token_expiry);
+  
+
+  res.cookie('refreshToken', refreshToken, {
+    secure: NODE_ENV === 'production',
+    httpOnly: true,
+  });
+  res.cookie('accessToken', accessToken, {
+    secure: NODE_ENV === 'production',
+    httpOnly: true,
+  });
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: 'logged in successfully',
+    token: accessToken,
+    data: user,
+  });
+}
+
+
+});
+
+// export const googleLoginCallbackController = (req: Request, res: any) => {
+//   // if (!req.user) {
+//   //   return res.status(500).json({
+//   //     status: 500,
+//   //     success: false,
+//   //     message: 'User not found',
+//   //   });
+//   // }
+//   // const { accessToken, refreshToken } = req?.user as any; 
+//   // console.log(accessToken,refreshToken);
+
+//   // res.cookie('refreshToken', refreshToken, {
+//   //   secure: NODE_ENV === 'production',
+//   //   httpOnly: true,
+//   // });
+//   // res.cookie('accessToken', accessToken, {
+//   //   secure: NODE_ENV === 'production',
+//   //   httpOnly: true,
+//   // });
+
+
+
+//   // Redirect to a secure page or dashboard after successful login
+//   // res.redirect('/dashboard');
+// };
 
 export const createUserController: RequestHandler = catchAsync(
   async (req, res) => {
@@ -71,7 +145,7 @@ export const activateAccountController: RequestHandler = catchAsync(
  */
 
 export const loginController: RequestHandler = catchAsync(async (req, res) => {
-  const payload: IUser = req.body;
+  const payload: ILogin = req.body;
   const { refreshToken, accessToken, rest } = await loginService(payload);
 
   res.cookie('refreshToken', refreshToken, {
@@ -135,7 +209,7 @@ export const resetPasswordController: RequestHandler = catchAsync(
 );
 export const changePasswordController: RequestHandler = catchAsync(
   async (req, res) => {
-    const user = req.user;
+    const user:any = req.user;
     await changePasswordService(user, req.body);
 
     sendResponse(res, {
@@ -147,14 +221,25 @@ export const changePasswordController: RequestHandler = catchAsync(
 );
 
 export const logoutController: RequestHandler = catchAsync(async (req, res) => {
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
+  req.logout(function (err) {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: 'Logout failed',
+        error: err.message || 'An unexpected error occurred',
+      });
+    }
 
-  sendResponse(res, {
-    status: httpStatus.OK,
-    success: true,
-    message: 'logout Successfully',
-    // token: result,
-    // data: req.session
+    // Clear local cookies (e.g., accessToken, refreshToken)
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+
+    sendResponse(res, {
+      status: httpStatus.OK,
+      success: true,
+      message: 'logout Successfully',
+      // token: result,
+      // data: req.session
+    });
   });
 });

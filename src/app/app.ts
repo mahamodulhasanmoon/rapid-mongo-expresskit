@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import './../config/passport';
 import path from 'path';
 import middleware from './middleware';
 import routes from './routes';
@@ -14,10 +15,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.json());
-
 app.use(middleware);
 app.use('/api/v1', routes);
 app.use(notFoundHandler);
 app.use(errorHandler);
+
 
 export default app;

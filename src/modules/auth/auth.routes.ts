@@ -10,15 +10,25 @@ import {
   changePasswordController,
   createUserController,
   forgetPasswordController,
+  googleLoginCallbackController,
   loginController,
   logoutController,
   refreshController,
   resetPasswordController,
 } from './auth.controller';
 import auth from '../../middlewares/auth';
+import passport from 'passport';
 
 export const authRoutes: Router = Router();
 
+
+authRoutes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+authRoutes.get('/google/callback', passport.authenticate('google',  { session: false }),googleLoginCallbackController);
+
+
+
+// main authentication
 authRoutes.post(
   '/signup',
   requestValidator(createUserValidation),
