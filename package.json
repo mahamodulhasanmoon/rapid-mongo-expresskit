@@ -1,6 +1,6 @@
 {
   "name": "rapid-mongo-expresskit",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Rapid Mongo Express Kit is a ready-to-use boilerplate for building Express.js applications with MongoDB. It includes pre-configured authentication, mail sending, error handling, and other utilities to streamline development and reduce repetitive tasks.",
   "main": "index.js",
   "bin": {
