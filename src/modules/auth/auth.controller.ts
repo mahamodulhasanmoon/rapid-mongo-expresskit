@@ -48,11 +48,9 @@ if(user){
   res.cookie('refreshToken', refreshToken, {
     secure: NODE_ENV === 'production',
     httpOnly: true,
+    sameSite:'lax' 
   });
-  res.cookie('accessToken', accessToken, {
-    secure: NODE_ENV === 'production',
-    httpOnly: true,
-  });
+
   sendResponse(res, {
     status: httpStatus.OK,
     success: true,
@@ -149,10 +147,6 @@ export const loginController: RequestHandler = catchAsync(async (req, res) => {
   const { refreshToken, accessToken, rest } = await loginService(payload);
 
   res.cookie('refreshToken', refreshToken, {
-    secure: NODE_ENV === 'production',
-    httpOnly: true,
-  });
-  res.cookie('accessToken', accessToken, {
     secure: NODE_ENV === 'production',
     httpOnly: true,
   });

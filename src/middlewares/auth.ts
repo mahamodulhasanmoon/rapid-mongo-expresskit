@@ -10,7 +10,9 @@ import { IUserRole } from '../modules/user/user.interface';
 const auth = (...requiredRoles: IUserRole[]) => {
   return catchAsync(
     async (req: Request, _res: Response, next: NextFunction) => {
-      const { accessToken: token } = req.cookies;
+      // const { accessToken: token } = req.cookies;
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
 
       // checking if the token is missing
       if (!token) {
