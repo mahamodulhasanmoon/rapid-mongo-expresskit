@@ -23,6 +23,12 @@ export const refresh_token_expiry: string =
   export const googleClient = process.env.GOOGLE_CLIENT
   export const googleSecrete = process.env.GOOGLE_SECRET
 
+  // For Cloud Storage
+
+  export const cloudName= process.env.CLOUD_NAME
+  export const cloudApiKey= process.env.CLOUD_API_KEY
+  export const cloudSecret= process.env.CLOUD_SECRET
+
 //  For Email Server
 
 export const mailHost: string = process.env.MAIL_HOST || 'smtp.gmail.com';
