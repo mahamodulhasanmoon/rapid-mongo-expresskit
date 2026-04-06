@@ -44,28 +44,24 @@ const userSchema = new Schema<IUser, IUserModel>(
     timestamps: true,
   },
 );
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this; // doc
   if (user.password) {
     user.password = await bcrypt.hash(user.password, Number(saltRound));
   }
-  next();
 });
 
-userSchema.pre('find', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
+userSchema.pre('find', function () {
+  this.where({ isDeleted: { $ne: true } });
 });
 
-userSchema.pre('findOne', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
+userSchema.pre('findOne', function () {
+  this.where({ isDeleted: { $ne: true } });
 });
 
-userSchema.pre('aggregate', function (next) {
+userSchema.pre('aggregate', function () {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-  next();
 });
 
 userSchema.statics.isUserExists = async function (payload) {
@@ -88,9 +84,8 @@ userSchema.statics.updatePassword = async function (
 userSchema.methods.comparePassword = function (password: string) {
   return bcrypt.compareSync(password, this.password);
 };
-userSchema.post('save', function (doc, next) {
+userSchema.post('save', function (doc) {
   doc.password = '';
-  next();
 });
 
 export const User = model<IUser, IUserModel>('User', userSchema);

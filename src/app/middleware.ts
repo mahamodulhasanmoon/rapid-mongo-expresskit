@@ -9,6 +9,7 @@ const middleware = [
   morgan('dev'),
   cors({
     origin: corsOrigin,
+    credentials: true,
   }),
   cookieParser(),
   express.static("docs"),

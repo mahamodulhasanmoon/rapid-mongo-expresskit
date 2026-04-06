@@ -4,6 +4,7 @@ import { IUser } from '../user/user.interface';
 import jwt from 'jsonwebtoken';
 import passport from 'passport'; 
 import {
+  adminLoginService,
   changePasswordService,
   createUserService,
   forgetPasswordService,
@@ -158,6 +159,26 @@ export const loginController: RequestHandler = catchAsync(async (req, res) => {
     data: rest,
   });
 });
+
+export const adminLoginController: RequestHandler = catchAsync(
+  async (req, res) => {
+    const payload: ILogin = req.body;
+    const { refreshToken, accessToken, rest } = await adminLoginService(payload);
+
+    res.cookie('refreshToken', refreshToken, {
+      secure: NODE_ENV === 'production',
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+    sendResponse(res, {
+      status: httpStatus.OK,
+      success: true,
+      message: 'Admin signed in successfully',
+      token: accessToken,
+      data: rest,
+    });
+  },
+);
 
 export const refreshController: RequestHandler = catchAsync(
   async (req, res) => {

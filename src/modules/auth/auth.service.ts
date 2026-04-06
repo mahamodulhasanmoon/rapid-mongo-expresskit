@@ -100,6 +100,18 @@ export const loginService = async (payload: ILogin) => {
   };
 };
 
+/** Same as login but rejects non-admin accounts (admin dashboard only). */
+export const adminLoginService = async (payload: ILogin) => {
+  const { accessToken, refreshToken, rest } = await loginService(payload);
+  if ((rest as { role?: string }).role !== 'admin') {
+    throw new CustomError(
+      httpStatus.FORBIDDEN,
+      'Access denied. Use an administrator account.',
+    );
+  }
+  return { accessToken, refreshToken, rest };
+};
+
 export const refreshTokenService = async (token: string) => {
   const decoded = jwt.verify(token, refresh_token) as JwtPayload;
 

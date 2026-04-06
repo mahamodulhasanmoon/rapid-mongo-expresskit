@@ -7,6 +7,7 @@ import {
 } from './auth.validaton';
 import {
   activateAccountController,
+  adminLoginController,
   changePasswordController,
   createUserController,
   forgetPasswordController,
@@ -40,6 +41,11 @@ authRoutes.post(
   activateAccountController,
 );
 authRoutes.post('/login', requestValidator(loginValidation), loginController);
+authRoutes.post(
+  '/admin-login',
+  requestValidator(loginValidation),
+  adminLoginController,
+);
 // authRoutes.get(
 //   '/me',
 //   auth('admin','subadmin','user'),
