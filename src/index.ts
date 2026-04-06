@@ -8,9 +8,10 @@ import { connectMongoDB } from './db/dbConnect';
       // eslint-disable-next-line no-console
       console.log('database is connecting...');
       await connectMongoDB(mongoUrl);
-      app.listen(port, () => {
+      const listenPort = Number(port) || 5000;
+      app.listen(listenPort, () => {
         // eslint-disable-next-line no-console
-        console.log(`server is running at ${port}`);
+        console.log(`server is running at ${listenPort}`);
       });
     } else {
       // eslint-disable-next-line no-console

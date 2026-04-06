@@ -2,14 +2,14 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 import { User } from '../modules/user/user.model';
-import { googleClient, googleSecrete } from './index';
+import { apiPublicBase, googleClient, googleSecrete } from './index';
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: googleClient as string,
       clientSecret: googleSecrete as string,
-      callbackURL: 'http://localhost:8080/api/v1/auth/google/callback',
+      callbackURL: `${apiPublicBase()}/api/v1/auth/google/callback`,
       passReqToCallback: true,
     },
     async (_request: any, _accessToken: string, _refreshToken: string, profile: any, done: (err: any, user?: any) => void) => {

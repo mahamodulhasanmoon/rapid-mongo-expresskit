@@ -1,16 +1,44 @@
 import 'dotenv/config';
 
 export const NODE_ENV = process.env.NODE_ENV;
-export const baseUrl = process.env.BASE_URL;
-export const frontendUrl = process.env.FRONTEND_URL;
+export const baseUrl = process.env.BASE_URL?.trim();
+export const frontendUrl = process.env.FRONTEND_URL?.trim();
 export const port = process.env.PORT;
+
+/** Public URL of this API (no trailing slash). Used for OAuth callbacks and links. */
+export const apiPublicBase = (): string => {
+  const fromEnv = baseUrl?.replace(/\/$/, '');
+  if (fromEnv) return fromEnv;
+  const p = port || '5000';
+  return `http://localhost:${p}`;
+};
+
+/**
+ * Value for `cors({ origin })`.
+ * - `ORIGIN=*` or unset → `true` (reflect request Origin; works with `credentials: true`).
+ *   Note: `origin: '*'` cannot be used with credentials, so we use reflection instead.
+ * - Otherwise: comma/newline-separated allowlist.
+ */
+export const corsOrigin:
+  | boolean
+  | string
+  | string[]
+  | undefined = (() => {
+  const raw = process.env.ORIGIN?.trim();
+  if (!raw || raw === '*') return true;
+  const parts = raw
+    .split(/[\n,]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length === 0) return true;
+  return parts.length === 1 ? (parts[0] as string) : parts;
+})();
 // for Database Connection
 export const mongoUrl: string = process.env.mongoDB_URI || '';
 export const redisUrl: string = process.env.REDIS_URI || '';
 
 //  for Authencticaion and Security
 
-export const corsOrigin = process.env.ORIGIN;
 export const access_token: string = process.env.ACCESS_TOKEN || '';
 export const refresh_token: string = process.env.REFRESH_TOKEN || '';
 export const defaultPass = process.env.DEFAULT_PASS;
